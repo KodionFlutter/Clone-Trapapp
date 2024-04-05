@@ -10,10 +10,11 @@ import 'Utils/constant.dart';
 
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
-  runApp(DevicePreview(
-    enabled: true,
-    builder: (context) => MyApp(),
-  ));
+  // runApp(DevicePreview(
+  //   enabled: true,
+  //   builder: (context) => MyApp(),
+  // ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -35,9 +36,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
+      // useInheritedMediaQuery: true,
+      // locale: DevicePreview.locale(context),
+      // builder: DevicePreview.appBuilder,
       title: 'Trapapp clone',
       theme: ThemeData(
           primarySwatch: Colors.lightBlue,

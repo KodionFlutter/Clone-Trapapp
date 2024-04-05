@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:trapapp_clone/Common/App_colors/app_colors.dart';
 import 'package:trapapp_clone/Common/Text_style/text_style.dart';
 import 'package:trapapp_clone/Common/widgets/btn_widget.dart';
-import 'package:trapapp_clone/Screens/Authentic/controller/authentic_controller.dart';
+import 'package:trapapp_clone/Screens/Authentic/controller/scan_product_controller.dart';
 
-class LandingPage extends StatelessWidget {
-   LandingPage({super.key});
-  final authenticController = Get.put(AuthenticController());
+class ScanProductPage extends StatelessWidget {
+  ScanProductPage({super.key});
+  final authenticController = Get.put(ScanProductController());
 
   @override
   Widget build(BuildContext context) {

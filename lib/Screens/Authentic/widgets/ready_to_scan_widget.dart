@@ -67,7 +67,9 @@ class ReadyToScanWidget extends StatelessWidget {
                       height: 49,
                       width: double.infinity,
                       child: ButtonWidget(
-                        btnOnPressed: () {},
+                        btnOnPressed: () {
+                          Get.back();
+                        },
                         btnHeight: size.height*0.1,
                         btnWidth: size.width,
 btnBackgroundColor: AppColors.lendingPageBackgroundColor,

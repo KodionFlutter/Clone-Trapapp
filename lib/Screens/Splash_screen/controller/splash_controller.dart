@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trapapp_clone/Screens/Authentic/pages/landing_page.dart';
+import 'package:trapapp_clone/Screens/Authentic/pages/authentic_product_page.dart';
+import 'package:trapapp_clone/Screens/Authentic/pages/sacn_product_page.dart';
 
 class SplashScreenController extends GetxController with GetSingleTickerProviderStateMixin{
 
@@ -30,7 +31,7 @@ class SplashScreenController extends GetxController with GetSingleTickerProvider
   nextPage() {
     Future.delayed(Duration(seconds: 3), () async {
       // Going to th landing Page
-     Get.off(LandingPage());
+     Get.off(ScanProductPage());
     });
   }
 

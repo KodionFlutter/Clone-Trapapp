@@ -11,13 +11,15 @@ import 'package:nfc_manager/nfc_manager.dart';
 import 'package:trapapp_clone/Common/widgets/alert_dialog_widget.dart';
 import 'package:trapapp_clone/Model/login_model.dart';
 import 'package:trapapp_clone/Model/nfc_validate_model.dart';
+import 'package:trapapp_clone/Screens/Authentic/pages/authentic_product_page.dart';
 import 'package:trapapp_clone/Screens/Authentic/pages/ready_scan_page.dart';
+import 'package:trapapp_clone/Screens/Authentic/widgets/alert_dialogbox_orange2.dart';
 import 'package:trapapp_clone/Screens/Authentic/widgets/not_available_nfc_widget.dart';
 import 'package:trapapp_clone/Screens/Nfc_loading/nfc_loading.dart';
 import 'package:trapapp_clone/Utils/constant.dart';
 import 'package:http/http.dart' as http;
 
-class AuthenticController extends GetxController {
+class ScanProductController extends GetxController {
   //https://api.trapapp.io/index.cfm
   RxBool isAvailable = true.obs;
   RxString userServiceToken = "".obs;
@@ -171,10 +173,9 @@ class AuthenticController extends GetxController {
           context: navigatorKey.currentState!.context,
           builder: (builder) {
             return NotAvailableWidget(
-              height: MediaQuery
-                  .of(navigatorKey.currentState!.context)
-                  .size
-                  .height *
+              height: MediaQuery.of(navigatorKey.currentState!.context)
+                      .size
+                      .height *
                   0.3,
               message: "Please enable NFC in settings",
             );
@@ -278,13 +279,13 @@ class AuthenticController extends GetxController {
     try {
       if ((Platform.isAndroid)) {
         Uint8List identifier =
-        Uint8List.fromList(tag.data["ndef"]['identifier']);
+            Uint8List.fromList(tag.data["ndef"]['identifier']);
         identifier1 = identifier
             .map((e) => e.toRadixString(16).padLeft(2, '0'))
             .join(':');
       } else {
         Uint8List identifier =
-        Uint8List.fromList(tag.data["mifare"]['identifier']);
+            Uint8List.fromList(tag.data["mifare"]['identifier']);
         identifier1 = identifier
             .map((e) => e.toRadixString(16).padLeft(2, '0'))
             .join(':');
@@ -296,12 +297,10 @@ class AuthenticController extends GetxController {
   }
 
 //! Making a function for validate the NFC tag
-  Future validateNFCTag(BuildContext context, String serialNumber,
-      String productPage) async {
+  Future validateNFCTag(
+      BuildContext context, String serialNumber, String productPage) async {
     if (userServiceToken.value.isEmpty ||
-        userServiceToken.value
-            .toString()
-            .isEmpty) {
+        userServiceToken.value.toString().isEmpty) {
       AlertDialogBoxWidget(
         title: 'Authorization Error',
         message: 'Token is empty',
@@ -315,74 +314,75 @@ class AuthenticController extends GetxController {
     log("Code validation :: ${url.toString()}");
     log("Token :: ${userServiceToken.value.toString()}");
 
-    try{
-      final response =await http.get(
+    try {
+      final response = await http.get(
           Uri.parse(url).replace(queryParameters: queryParameter),
           headers: {
             'authorization': userServiceToken.value.toString(),
-
-          }
-      ).timeout(const Duration(seconds: 10), onTimeout: () {
+          }).timeout(const Duration(seconds: 10), onTimeout: () {
         return http.Response('Error', 404);
       });
       log("Code Validation Response :: ${response.body.toString()}");
-      if(isShowingAnimationScreen.value){
+      if (isShowingAnimationScreen.value) {
         hideNFCLoadingScreen(navigatorKey.currentState!.context);
       }
       var data = json.decode(response.body);
       log("Decoded code validateion Data :: $data");
       var nfcValidateDataModel = NFCValidateModel.fromJson(data);
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         log("Response Success :: ${data['success']}");
-        if(data["success"]){
+        if (data["success"]) {
           if (data["CLIENT_ID"] == 1966 || data["IS_360"] == 1) {
             Future.delayed(Duration.zero).then((_) async {
               NFCScan(false);
               log("Client Id == 1966 & IS_360 == 1 :: TRUE");
-             /* var back = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AuthenticProduct(
-                      responseData: data, code: serial_no, validateModel: null),
-                ),*/
-              // );
-              // if (back) {
-              //   NFCScan(true);
-              // }
+              var back = await Get.to(() => AuthenticProductPage(
+                    responseData: data,
+                    serialNumber: serialNumber,
+                    nfcValidateModel: null,
+                  ));
+              if (back) {
+                NFCScan(true);
+              }
             });
-          }else if (data['VIDEO_URL'].isNotEmpty) {
+          } else if (data['VIDEO_URL'].isNotEmpty) {
             await Future.delayed(Duration.zero).then((value) async {
               NFCScan(false);
               log("VIDEO URL isNotEmpty");
               // hide your widget
-              // var back = await Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => AuthenticProduct(
-              //           responseData: data,
-              //           code: serial_no,
-              //           validateModel: modelData),
-              //     ));
-              // if (back) {
-              //   NFCScan(true);
-              // }
+              var back = await Get.to(AuthenticProductPage(
+                    responseData: data,
+                    serialNumber: serialNumber,
+                    nfcValidateModel: nfcValidateDataModel,
+                  ));
+              if (back) {
+                NFCScan(true);
+              }
             });
           } else {
             log("89790==>${data['LOGO_PATH']}");
-            // alertDialogOrange2(data, serial_no);
+            //A calling the Alert Dialog  Orange2 Box
+            showDialog(
+                context: navigatorKey.currentState!.context,
+                builder: (_) {
+                  return AlertDialogBoxOrange2Widget(
+                    nfcValidateModel: data,
+                    serialNumber: serialNumber,
+                  );
+                });
           }
-        }else{
-          try{
-            AlertDialogBoxWidget(title: '', message: 'Not',);
-          }catch(e){}
+        } else {
+          try {
+            AlertDialogBoxWidget(
+              title: 'data["success"]',
+              message: 'Is False',
+            );
+          } catch (e) {}
         }
       }
-    }catch(exception){
+    } catch (exception) {
       log("Exception :: ${exception.toString()}");
     }
-
-
-
   }
 
   //! Hide NFC Loading Screen

@@ -17,5 +17,12 @@ class CommonTextStyle{
     fontWeight: FontWeight.w500,
   );
 
+  static const mediumBoldTextStyle = TextStyle(
+    color: AppColors.txtWhiteColor,
+    fontSize: 16,
+    fontFamily: 'Montserrat',
+    fontWeight: FontWeight.bold,
+  );
+
   static const smallTextStyle =TextStyle(color: AppColors.txtWhiteColor, fontSize: 12);
 }
