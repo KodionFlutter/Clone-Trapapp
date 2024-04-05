@@ -286,7 +286,7 @@ class AuthenticProductPage extends StatelessWidget {
                       left: 10,
                       child: Container(
                           width: size.width / 1.1,
-                          padding: EdgeInsets.only(top: 5, bottom: 15),
+                          padding:const EdgeInsets.only(top: 5, bottom: 15),
                           decoration: ShapeDecoration(
                             color: Colors.black87.withOpacity(0.6),
                             shape: RoundedRectangleBorder(
