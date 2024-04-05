@@ -50,22 +50,6 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class Image extends StatelessWidget {
-  const Image({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            image: const DecorationImage(
-                image: AssetImage("assets/images/Cothes-(2).gif"),fit: BoxFit.fill)),
-      ),
-    );
-  }
-}
-
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
