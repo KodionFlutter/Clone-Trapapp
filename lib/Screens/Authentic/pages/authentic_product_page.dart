@@ -35,113 +35,6 @@ class AuthenticProductPage extends StatelessWidget {
     log("This is nfcModel Data :: ${nfcValidateModel!.success.toString()}");
     log("This is :::${authenticProductController.videoPlayerController.value.isInitialized}");
     log("Yes it is Contain :: ${authenticProductController.videoUrl.value.endsWith("mp4")}");
-
-    // return Scaffold(
-    //   body: Stack(
-    //     children: [
-    //       // Here are show the appBar .
-    //
-    //       if (authenticProductController.videoUrl.value.endsWith("mp4"))
-    //         authenticProductController.videoPlayerController.value.isInitialized
-    //             ? Container(
-    //           width:size.width,
-    //           height:size.height,
-    //           child: Stack(
-    //             alignment: Alignment.center,
-    //             children: [
-    //               // getBOXFitted(_controller),
-    //             ],
-    //           ),
-    //         )
-    //             : Stack(
-    //           fit: StackFit.expand,
-    //           children: [
-    //             Positioned(
-    //               left: Platform.isAndroid
-    //                   ? ((MediaQuery.of(context).size.width - 180) /
-    //                   2)
-    //                   : ((MediaQuery.of(context).size.width - 150) /
-    //                   2), // Center horizontally
-    //               top: ((MediaQuery.of(context).size.height - 180) /
-    //                   2.4), // Center vertically
-    //
-    //               child: Image.asset(
-    //                 "assets/images/newlogo.png",
-    //                 width: Platform.isAndroid ? 180 : 150,
-    //                 height: Platform.isAndroid ? 180 : 150,
-    //               ),
-    //             )
-    //           ],
-    //         ),
-    //       Positioned(
-    //         top: 10,
-    //         left: 0,
-    //         child: SizedBox(
-    //           width: size.width,
-    //           height: size.height * 0.1,
-    //           child: const Row(
-    //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //             children: [
-    //               CircleAvatar(
-    //                 backgroundColor: AppColors.whiteColor,
-    //                 radius: 20,
-    //                 child: Icon(Icons.arrow_back),
-    //               ),
-    //               // Display the backpackboys image
-    //               Image(
-    //                   image:
-    //                       AssetImage("assets/images/backpackboyz-logo.png")),
-    //             ],
-    //           ),
-    //         ),
-    //       ),
-    //       // Here is Authentic Backpack Boyz Product section
-    //
-    //       Positioned(
-    //         bottom: 10,
-    //         left: 10,
-    //         right: 10,
-    //         child: Container(
-    //           // height: size.height * 0.4,
-    //           width: size.width,
-    //           decoration: BoxDecoration(
-    //               color: AppColors.blackColors.withOpacity(0.5),
-    //               borderRadius: BorderRadius.circular(20)),
-    //           child: Padding(
-    //             padding:
-    //                 const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.center,
-    //               children: [
-    //                 Text(
-    //                   "Authentic Backpack Boyz Product",
-    //                   style: CommonTextStyle.mediumBoldTextStyle,
-    //                 ),
-    //                 SizedBox(height: 20),
-    //                 Image(
-    //                     image: AssetImage(
-    //                         "assets/images/backpackboyz-logo.png")),
-    //                 SizedBox(height: 20),
-    //                 Text(
-    //                   "Scan Count : 145",
-    //                   style: CommonTextStyle.mediumBoldTextStyle,
-    //                 ),
-    //                 SizedBox(height: 10),
-    //                 ButtonWidget(
-    //                   btnOnPressed: () {},
-    //                   btnHeight: size.height * 0.07,
-    //                   btnWidth: size.width,
-    //                   btnText: 'About Backpack Boyz',
-    //                   btnBackgroundColor: AppColors.blackColors,
-    //                 )
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
     return  PopScope(
           canPop: true,
           onPopInvoked: (bool isPop) {
@@ -150,6 +43,7 @@ class AuthenticProductPage extends StatelessWidget {
           child: Scaffold(
               backgroundColor: Colors.white,
               body: Obx(() =>  Container(
+
                 width: size.width,
                 height: size.height,
                 decoration: const BoxDecoration(color: Colors.transparent),
